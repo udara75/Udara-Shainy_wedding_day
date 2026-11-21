@@ -29,6 +29,14 @@ const otherSelect = document.getElementById("other-user");
 const form = document.getElementById("login-form");
 const error = document.getElementById("login-error");
 const passwordInput = document.getElementById("password");
+const sections = [
+  { title: "Hotel Decorations", href: "decorations.html", who: null },
+  { title: "Guest list and table arrangement", href: "guests.html", who: ["Udara", "Shainy", "Grandeezza"] },
+  { title: "Hotel Menu", href: "menu.html", who: ["Udara", "Shainy", "Grandeezza", "Roshen", "Shehan", "Shashik"] },
+  { title: "Event timeline", href: "timeline.html", who: null },
+  { title: "Saxophone", href: "saxophone.html", who: ["Udara", "Shainy", "Naveen", "Ruwan", "Grandeezza", "WIFI music"] }
+];
+
 const gate = document.getElementById("gate");
 const home = document.getElementById("home");
 const who = document.getElementById("who");
@@ -104,6 +112,15 @@ document.getElementById("sign-out").addEventListener("click", () => {
 
 function showHome(name) {
   who.textContent = name;
+  const list = document.getElementById("sections");
+  list.replaceChildren();
+  sections.filter((section) => !section.who || section.who.includes(name)).forEach((section) => {
+    const link = document.createElement("a");
+    link.className = "section-link";
+    link.href = section.href;
+    link.textContent = section.title;
+    list.appendChild(link);
+  });
   gate.hidden = true;
   home.hidden = false;
   error.hidden = true;
