@@ -16,7 +16,7 @@ body {
   font-family: Georgia, "Times New Roman", serif;
   color: var(--ink);
   background:
-    url("Lavender%20Floral%20Elegance%20Background.png") center / cover no-repeat fixed,
+    url("background.png") center / cover no-repeat,
     #efe6fb;
 }
 
