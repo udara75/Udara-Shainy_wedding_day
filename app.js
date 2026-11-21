@@ -30,11 +30,11 @@ const form = document.getElementById("login-form");
 const error = document.getElementById("login-error");
 const passwordInput = document.getElementById("password");
 const sections = [
-  { title: "Hotel Decorations", href: "decorations.html", who: null },
-  { title: "Guest list and table arrangement", href: "guests.html", who: ["Udara", "Shainy", "Grandeezza"] },
-  { title: "Hotel Menu", href: "menu.html", who: ["Udara", "Shainy", "Grandeezza", "Roshen", "Shehan", "Shashik"] },
-  { title: "Event timeline", href: "timeline.html", who: null },
-  { title: "Saxophone", href: "saxophone.html", who: ["Udara", "Shainy", "Naveen", "Ruwan", "Grandeezza", "WIFI music"] }
+  { icon: "💐", title: "Hotel Decorations", note: "Flowers, fabric, and room styling", href: "decorations.html", who: null },
+  { icon: "🪑", title: "Guest list and tables", note: "Names, seats, and table plan", href: "guests.html", who: ["Udara", "Shainy", "Grandeezza"] },
+  { icon: "🍽️", title: "Hotel Menu", note: "Dishes, drinks, and service", href: "menu.html", who: ["Udara", "Shainy", "Grandeezza", "Roshen", "Shehan", "Shashik"] },
+  { icon: "⏳", title: "Event timeline", note: "The order of the day", href: "timeline.html", who: null },
+  { icon: "🎷", title: "Saxophone", note: "Music cues and set list", href: "saxophone.html", who: ["Udara", "Shainy", "Naveen", "Ruwan", "Grandeezza", "WIFI music"] }
 ];
 
 const gate = document.getElementById("gate");
@@ -118,7 +118,10 @@ function showHome(name) {
     const link = document.createElement("a");
     link.className = "section-link";
     link.href = section.href;
-    link.textContent = section.title;
+    link.innerHTML =
+      '<span class="section-icon" aria-hidden="true">' + section.icon + "</span>" +
+      '<span class="section-copy"><strong>' + section.title + "</strong><span>" + section.note + "</span></span>" +
+      '<span class="section-go" aria-hidden="true">›</span>';
     list.appendChild(link);
   });
   gate.hidden = true;
