@@ -1,11 +1,11 @@
 :root {
-  --ink: #3d2c29;
-  --muted: #7a655f;
-  --paper: #fffaf6;
-  --line: #eadfd6;
-  --gold: #8c6a45;
-  --blush: #f3e6df;
-  --error: #8f3d3d;
+  --ink: #3c2a55;
+  --muted: #6d5b86;
+  --paper: #fbf8ff;
+  --line: #e3d7f2;
+  --gold: #7a5ea8;
+  --blush: #efe6fb;
+  --error: #8a3d62;
 }
 
 * { box-sizing: border-box; }
@@ -16,7 +16,8 @@ body {
   font-family: Georgia, "Times New Roman", serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at top, #fff 0%, var(--blush) 42%, #e7d5cc 100%);
+    url("Lavender%20Floral%20Elegance%20Background.png") center / cover no-repeat fixed,
+    #efe6fb;
 }
 
 .page {
@@ -52,11 +53,11 @@ h1 {
 }
 
 .card {
-  background: var(--paper);
+  background: rgba(251, 248, 255, 0.92);
   border: 1px solid var(--line);
   border-radius: 1.25rem;
   padding: 1.5rem 1.35rem 1.4rem;
-  box-shadow: 0 18px 40px rgba(90, 55, 40, 0.08);
+  box-shadow: 0 18px 40px rgba(74, 48, 120, 0.12);
 }
 
 h2 {
@@ -100,11 +101,11 @@ button {
   border: 0;
   border-radius: 999px;
   background: var(--ink);
-  color: #fffaf6;
+  color: #fbf8ff;
   cursor: pointer;
 }
 
-button:hover { background: #2a1e1c; }
+button:hover { background: #2c1d44; }
 
 .other-wrap { margin-top: 0.2rem; }
 
