@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shainy &amp; Udara · Dec 16, 2026</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="mast">
+      <p class="eyebrow">Wedding day</p>
+      <h1>Shainy &amp; Udara</h1>
+      <p class="date">December 16, 2026</p>
+    </header>
+
+    <main id="gate" class="card">
+      <h2>Sign in</h2>
+      <p class="lead">Choose your name and enter the password shared with you.</p>
+
+      <form id="login-form" autocomplete="on">
+        <label for="user">User name</label>
+        <select id="user" name="username" required>
+          <option value="" selected disabled>Select a name</option>
+          <option>Udara</option>
+          <option>Shainy</option>
+          <option>Grandeezza</option>
+          <option>VMASTER</option>
+          <option>Senuri-Deco</option>
+          <option>WIFI music</option>
+          <option value="__other">Other</option>
+        </select>
+
+        <div id="other-wrap" class="other-wrap" hidden>
+          <label for="other-user">Other name</label>
+          <select id="other-user" name="otherUsername">
+            <option value="" selected disabled>Select a name</option>
+            <option>Naveen</option>
+            <option>Roshen</option>
+            <option>Sewwandi</option>
+            <option>Shehan</option>
+            <option>Sandani</option>
+            <option>Dilki</option>
+            <option>Udari</option>
+            <option>Shashik</option>
+            <option>Samith</option>
+            <option>Ruchira</option>
+            <option>Ruwan</option>
+            <option>Sanda</option>
+            <option>Dulitha</option>
+          </select>
+        </div>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+        <p id="login-error" class="error" role="alert" hidden>That name and password do not match. Try again.</p>
+
+        <button type="submit">Enter</button>
+      </form>
+    </main>
+
+    <main id="home" class="card home" hidden>
+      <p class="welcome">Welcome, <span id="who"></span></p>
+      <p class="lead">This page is ready for the wedding checks we will add next.</p>
+      <button id="sign-out" type="button">Sign out</button>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
