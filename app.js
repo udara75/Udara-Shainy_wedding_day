@@ -30,11 +30,11 @@ const form = document.getElementById("login-form");
 const error = document.getElementById("login-error");
 const passwordInput = document.getElementById("password");
 const sections = [
-  { icon: "💐", title: "Hotel Decorations", note: "Flowers, fabric, and room styling", href: "decorations.html", who: null },
-  { icon: "🪑", title: "Guest list and tables", note: "Names, seats, and table plan", href: "guests.html", who: ["Udara", "Shainy", "Grandeezza"] },
-  { icon: "🍽️", title: "Hotel Menu", note: "Dishes, drinks, and service", href: "menu.html", who: ["Udara", "Shainy", "Grandeezza", "Roshen", "Shehan", "Shashik"] },
-  { icon: "⏳", title: "Event timeline", note: "The order of the day", href: "timeline.html", who: null },
-  { icon: "🎷", title: "Saxophone", note: "Music cues and set list", href: "saxophone.html", who: ["Udara", "Shainy", "Naveen", "Ruwan", "Grandeezza", "WIFI music"] }
+  { icon: "💐", title: "Hotel Decorations", note: "Flowers, fabric, and room styling", href: "decorations.html" },
+  { icon: "🪑", title: "Guest list and tables", note: "Names, seats, and table plan", href: "guests.html" },
+  { icon: "🍽️", title: "Hotel Menu", note: "Dishes, drinks, and service", href: "menu.html" },
+  { icon: "⏳", title: "Event timeline", note: "The order of the day", href: "timeline.html" },
+  { icon: "🎷", title: "Saxophone", note: "Music cues and set list", href: "saxophone.html" }
 ];
 
 const gate = document.getElementById("gate");
@@ -114,14 +114,34 @@ function showHome(name) {
   who.textContent = name;
   const list = document.getElementById("sections");
   list.replaceChildren();
-  sections.filter((section) => !section.who || section.who.includes(name)).forEach((section) => {
+  sections.filter((section) => WeddingAccess.can(section.href, name)).forEach((section) => {
     const link = document.createElement("a");
     link.className = "section-link";
     link.href = section.href;
-    link.innerHTML =
-      '<span class="section-icon" aria-hidden="true">' + section.icon + "</span>" +
-      '<span class="section-copy"><strong>' + section.title + "</strong><span>" + section.note + "</span></span>" +
-      '<span class="section-go" aria-hidden="true">›</span>';
+    const copy = document.createElement("span");
+    copy.className = "section-copy";
+    const title = document.createElement("strong");
+    title.textContent = section.title;
+    const note = document.createElement("span");
+    note.textContent = section.note;
+    copy.append(title, note);
+    if (name === "Udara") {
+      const access = document.createElement("span");
+      access.className = "section-who";
+      access.textContent = "Open to: " + WeddingAccess.label(section.href);
+      copy.append(access);
+    }
+    link.append(copy);
+    const icon = document.createElement("span");
+    icon.className = "section-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = section.icon;
+    const go = document.createElement("span");
+    go.className = "section-go";
+    go.setAttribute("aria-hidden", "true");
+    go.textContent = "›";
+    link.prepend(icon);
+    link.append(go);
     list.appendChild(link);
   });
   gate.hidden = true;

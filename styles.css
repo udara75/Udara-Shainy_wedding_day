@@ -170,6 +170,36 @@ button:hover { background: #2c1d44; }
   font-weight: 300;
 }
 
+.section-who {
+  margin-top: 0.15rem;
+  color: var(--gold);
+}
+
+.access-box {
+  margin: 0 0 1.1rem;
+  padding: 0.9rem 1rem 1rem;
+  border-radius: 1rem;
+  background: #f7f2fc;
+}
+
+.access-now { margin: 0.2rem 0 0.7rem; }
+
+.access-person {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.35rem 0;
+  font-size: 0.92rem;
+}
+
+.access-person input { width: auto; }
+
+.access-hint {
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .section-go {
   margin-left: auto;
   color: var(--gold);
