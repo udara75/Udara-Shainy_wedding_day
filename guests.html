@@ -7,17 +7,69 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body hidden>
-  <div class="page">
+  <div class="page wide">
     <header class="mast">
       <p class="eyebrow">Shainy &amp; Udara</p>
-      <h1>Guest list and table arrangement</h1>
+      <h1>Guest list and tables</h1>
+      <p class="date">Reception floor plan</p>
     </header>
     <main class="card">
       <a class="back" href="index.html">Back</a>
-      <p class="lead">The guest list and table plan will go here.</p>
+      <p class="lead">Select a table to see who sits there. Select a name to see their table on the plan.</p>
+
+      <img class="plan" src="Table%20arrangement.jpg" alt="Reception floor plan photograph">
+
+      <div class="room" id="room" aria-label="Interactive floor plan">
+        <div class="lobby">
+          <span class="tag">LED wall</span>
+          <span class="tag lobby-label">Lobby</span>
+          <span class="tag foyer">Foyer</span>
+        </div>
+        <div class="hall">
+          <span class="zone buffet">Buffet</span>
+          <span class="zone bar">Bar</span>
+          <span class="zone band">Band</span>
+          <span class="zone stage">Stage</span>
+          <span class="zone dance">Dance floor</span>
+          <span class="zone setty">Setty back</span>
+          <button type="button" class="seat head" data-table="Head" style="top:62%;right:1%">Head table</button>
+          <span class="aisle" aria-hidden="true">→ → →</span>
+          <button type="button" class="tbl" data-table="17" style="top:8%;left:84%">17</button>
+          <button type="button" class="tbl" data-table="16" style="top:20%;left:76%">16</button>
+          <button type="button" class="tbl" data-table="15" style="top:32%;left:86%">15</button>
+          <button type="button" class="tbl" data-table="14" style="top:24%;left:14%">14</button>
+          <button type="button" class="tbl" data-table="13" style="top:38%;left:8%">13</button>
+          <button type="button" class="tbl" data-table="18" style="top:36%;left:70%">18</button>
+          <button type="button" class="tbl" data-table="01" style="top:54%;left:8%">01</button>
+          <button type="button" class="tbl" data-table="06" style="top:54%;left:30%">06</button>
+          <button type="button" class="tbl" data-table="07" style="top:54%;left:52%">07</button>
+          <button type="button" class="tbl" data-table="12" style="top:54%;left:72%">12</button>
+          <button type="button" class="tbl" data-table="02" style="top:68%;left:8%">02</button>
+          <button type="button" class="tbl" data-table="05" style="top:68%;left:30%">05</button>
+          <button type="button" class="tbl" data-table="08" style="top:68%;left:52%">08</button>
+          <button type="button" class="tbl" data-table="11" style="top:68%;left:72%">11</button>
+          <button type="button" class="tbl" data-table="03" style="top:82%;left:8%">03</button>
+          <button type="button" class="tbl" data-table="04" style="top:82%;left:30%">04</button>
+          <button type="button" class="tbl" data-table="09" style="top:82%;left:52%">09</button>
+          <button type="button" class="tbl" data-table="10" style="top:82%;left:72%">10</button>
+          <span class="zone camera">Camera</span>
+        </div>
+      </div>
+
+      <section class="seat-detail" id="seat-detail" aria-live="polite">
+        <h2>Select a table</h2>
+        <p class="lead">The people at that table will appear here.</p>
+      </section>
+
+      <section>
+        <h2>Guests</h2>
+        <p class="lead" id="guest-empty">Names are not on the floor-plan photo. Send the list for each table and they will appear here.</p>
+        <div class="guest-list" id="guest-list"></div>
+      </section>
     </main>
   </div>
   <script src="access.js"></script>
   <script src="page.js"></script>
+  <script src="guests.js"></script>
 </body>
 </html>
