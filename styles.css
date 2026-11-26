@@ -400,13 +400,29 @@ button.quiet:hover {
 }
 
 .seat-detail { margin-top: 1rem; }
-.guest-list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-.guest-chip {
+.guest-list { display: grid; gap: 0.55rem; }
+.guest-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  text-align: left;
   border: 1px solid var(--line);
+  border-radius: 0.9rem;
   background: #fff;
   color: var(--ink);
-  border-radius: 999px;
-  padding: 0.4rem 0.75rem;
-  width: auto;
-  margin: 0;
 }
+.guest-card span {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+.guest-card.is-on {
+  background: #3c2a55;
+  color: #fbf8ff;
+  border-color: #3c2a55;
+}
+.guest-card.is-on span { color: #efe6fb; }

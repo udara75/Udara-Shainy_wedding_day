@@ -57,7 +57,18 @@ const seating = {
   "10": { people: [] },
   "11": { people: [] },
   "12": { people: [] },
-  "13": { people: [] },
+  "13": {
+    people: [
+      "Mr & Mrs Ruwan Nandana",
+      "Mr & Mrs Chalindu Sankalpa",
+      "Mr Lahiru Chamara",
+      "Mr Naveen Wickremasinghe",
+      "Mrs Chanuri Saneesha",
+      "Mrs Udari Pabodhini",
+      "Miss Sapna Gamage",
+      "Mrs Weranga Kaweesha"
+    ]
+  },
   "14": { people: [] },
   "15": { people: [] },
   "16": { people: [] },
@@ -103,6 +114,9 @@ function showTable(table) {
     group.textContent = seat.group;
     detail.appendChild(group);
   }
+  guestList.querySelectorAll(".guest-card").forEach((card) => {
+    card.classList.toggle("is-on", card.dataset.table === table);
+  });
   if (!names.length) {
     const note = document.createElement("p");
     note.className = "lead";
@@ -130,8 +144,8 @@ function showPerson(person) {
   const where = person.table === "Head" ? "Head table, beside the setty" : "Table " + person.table;
   place.textContent = person.group ? where + ", " + person.group + "." : where + ".";
   detail.append(heading, place);
-  guestList.querySelectorAll("button").forEach((button) => {
-    button.classList.toggle("is-on", button.dataset.name === person.name);
+  guestList.querySelectorAll(".guest-card").forEach((card) => {
+    card.classList.toggle("is-on", card.dataset.table === person.table);
   });
 }
 
@@ -139,16 +153,24 @@ document.querySelectorAll("[data-table]").forEach((button) => {
   button.addEventListener("click", () => showTable(button.dataset.table));
 });
 
-const assigned = people();
-if (assigned.length) {
+const assignedTables = Object.entries(seating).filter(([, seat]) => seat.people.length);
+if (assignedTables.length) {
   guestEmpty.hidden = true;
-  assigned.sort((a, b) => a.name.localeCompare(b.name)).forEach((person) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "guest-chip";
-    button.dataset.name = person.name;
-    button.textContent = person.name;
-    button.addEventListener("click", () => showPerson(person));
-    guestList.appendChild(button);
+  assignedTables.forEach(([table, seat]) => {
+    const block = document.createElement("button");
+    block.type = "button";
+    block.className = "guest-card";
+    block.dataset.table = table;
+
+    const title = document.createElement("strong");
+    title.textContent = (table === "Head" ? "Head table" : "Table " + table) + (seat.group ? " · " + seat.group : "");
+    block.appendChild(title);
+
+    const names = document.createElement("span");
+    names.textContent = seat.people.join(", ");
+    block.appendChild(names);
+
+    block.addEventListener("click", () => showTable(table));
+    guestList.appendChild(block);
   });
 }
