@@ -1,176 +1,155 @@
-const seating = {
-  "01": { people: [] },
-  "02": {
-    group: "University of Peradeniya",
-    people: [
-      "Mr Kasun Sandakelum",
-      "Mr Kasun Madushan",
-      "Mr Ashan Sampath",
-      "Mr Isuru Jayashankha",
-      "Mr Gihantha Wijesekara",
-      "Mr Lasindu Nisalka",
-      "Mr Sudeep Madubhashitha",
-      "Mr Dulshan Dhananjaya",
-      "Mr Hashara Piyumal",
-      "Mr Sadeep Shayamal",
-      "Mr Hasara Jayanath",
-      "Mr Sameera Dhananjaya"
-    ]
-  },
-  "03": {
-    group: "Synopsys",
-    people: [
-      "Mr Aditha Rajakaruna",
-      "Mr Lakshitha Madushan",
-      "Mr & Mrs Ashan Thirimanne",
-      "Mr Thimila Ranaweera",
-      "Mr Kaushan Ranasinghe",
-      "Miss Manodya Deemanthi",
-      "Mr Vetharaniam Kathircamalan",
-      "Mr Ashan Serasinghe",
-      "Mr Supun C Dassanayake",
-      "Mr Ravindu Harshana",
-      "Mr Rishan Rasdeen"
-    ]
-  },
-  "04": {
-    group: "Synopsys",
-    people: [
-      "Mr Tharinda Uthpala",
-      "Mr Dilan Nissanka",
-      "Mr Amila Kasun",
-      "Mr Sahan Peiris",
-      "Mr & Mrs Thimira Keerthisena",
-      "Mr Malith Mavinda",
-      "Mr Dhanuka Sankalpa",
-      "Mr Santhush Kariyawasam",
-      "Mr Aruna Edirimanne",
-      "Mr Hasitha Madushan",
-      "Mr Lakshitha Konara"
-    ]
-  },
-  "05": { people: [] },
-  "06": { people: [] },
-  "07": { people: [] },
-  "08": { people: [] },
-  "09": { people: [] },
-  "10": { people: [] },
-  "11": { people: [] },
-  "12": { people: [] },
-  "13": {
-    people: [
-      "Mr & Mrs Ruwan Nandana",
-      "Mr & Mrs Chalindu Sankalpa",
-      "Mr Lahiru Chamara",
-      "Mr Naveen Wickremasinghe",
-      "Mrs Chanuri Saneesha",
-      "Mrs Udari Pabodhini",
-      "Miss Sapna Gamage",
-      "Mrs Weranga Kaweesha"
-    ]
-  },
-  "14": { people: [] },
-  "15": { people: [] },
-  "16": { people: [] },
-  "17": { people: [] },
-  "18": { people: [] },
-  Head: { people: [] }
-};
+// Guest personalization — fixed letter-hex codes (a–f only, offset by n)
+// Link format: ?guest_0xacf=<slug>
+// Example: index.html?guest_0xacf=udara-kavinda
+// Codes + list numbers stay fixed across syncs.
+//
+// Auto-generated from guests-test.txt — edit that file, then sync/watch.
 
-const detail = document.getElementById("seat-detail");
-const guestList = document.getElementById("guest-list");
-const guestEmpty = document.getElementById("guest-empty");
+const GUESTS = [
+  { id: "udara-kavinda", code: "0xbba", name: "Mr. Udara Kavinda", table: "C" },
+  { id: "shainy-tharushika", code: "0xbbb", name: "Miss. Shainy Tharushika", table: "C" },
+  { id: "ruchira-maduranga", code: "0xbbc", name: "Mr. Ruchira Maduranga", table: "2" },
+  { id: "kapila-indrajith", code: "0xbbd", name: "Mr. Kapila Indrajith", table: "2" },
+  { id: "harshi-nimali", code: "0xbbe", name: "Mrs. Harshi Nimali", table: "2" },
+  { id: "dharshika-nilochani", code: "0xbbf", name: "Mrs. Dharshika Nilochani", table: "2" },
+  { id: "manjula-prabhath", code: "0xbca", name: "Mr. Manjula Prabhath", table: "2" },
+  { id: "ruwan-nandana", code: "0xbcb", name: "Mr. & Mrs. Ruwan Nandana", table: "3" },
+  { id: "chalindu-sankalpa", code: "0xbcc", name: "Mr. & Mrs. Chalindu Sankalpa", table: "3" },
+  { id: "madawa-dilshan", code: "0xbcd", name: "Mr. & Mrs. Madawa Dilshan", table: "3" },
+  { id: "lahiru-chamara", code: "0xbce", name: "Mr. Lahiru Chamara", table: "3" },
+  { id: "udari-pabodini", code: "0xbcf", name: "Mrs. Udari Pabodini", table: "3" },
+  { id: "naveen-wickramathunga", code: "0xbda", name: "Mr. Naveen Wickramathunga", table: "3" },
+  { id: "chanuri-saneesha", code: "0xbdb", name: "Miss. Chanuri Saneesha", table: "3" },
+  { id: "sapna-gamage", code: "0xbdc", name: "Miss. Sapna Gamage", table: "3" },
+  { id: "sameera-dananjaya", code: "0xbdd", name: "Mr. Sameera Dananjaya", table: "3" },
+  { id: "pasindu-kodippili", code: "0xbde", name: "Mr. Pasindu Kodippili", table: "3" },
+  { id: "aditha-rajakaruna", code: "0xbdf", name: "Mr. Aditha Rajakaruna", table: "4" },
+  { id: "ashan-thirimanne", code: "0xbea", name: "Mr. & Mrs. Ashan Thirimanne", table: "4" },
+  { id: "lakshitha-madushan", code: "0xbeb", name: "Mr. Lakshitha Madushan", table: "4" },
+  { id: "thimila-ranaweera", code: "0xbec", name: "Mr. Thimila Ranaweera", table: "4" },
+  { id: "manodya-dimanthi", code: "0xbed", name: "Miss. Manodya Dimanthi", table: "4" },
+  { id: "kaushan-ranasinghe", code: "0xbee", name: "Mr. Kaushan Ranasinghe", table: "4" },
+  { id: "venthiram-kathircamalan", code: "0xbef", name: "Mr. Venthiram kathircamalan", table: "4" },
+  { id: "ravindu-harshana", code: "0xbfa", name: "Mr. Ravindu Harshana", table: "4" },
+  { id: "ashan-serasinghe", code: "0xbfb", name: "Mr. Ashan Serasinghe", table: "4" },
+  { id: "rishan-rasdeen", code: "0xbfc", name: "Mr. Rishan Rasdeen", table: "4" },
+  { id: "kumudu-kalpani", code: "0xbfd", name: "Miss. Kumudu Kalpani", table: "4" },
+  { id: "isuru-jayashankha", code: "0xbfe", name: "Mr. Isuru Jayashankha", table: "5" },
+  { id: "kasun-sandakelum", code: "0xbff", name: "Mr. Kasun Sandakelum", table: "5" },
+  { id: "kasun-madushan", code: "0xcaa", name: "Mr. Kasun Madushan", table: "5" },
+  { id: "ashan-sampath", code: "0xcab", name: "Mr. Ashan Sampath", table: "5" },
+  { id: "osanda-sandaruwan", code: "0xcac", name: "Mr. Osanda Sandaruwan", table: "5" },
+  { id: "hasara-jayanath", code: "0xcad", name: "Mr. Hasara Jayanath", table: "5" },
+  { id: "hashara-piyumal", code: "0xcae", name: "Mr. Hashara Piyumal", table: "5" },
+  { id: "gihantha-wijesekara", code: "0xcaf", name: "Mr. Gihantha Wijesekara", table: "5" },
+  { id: "sudeepa-madubhashitha", code: "0xcba", name: "Mr. Sudeepa Madubhashitha", table: "5" },
+  { id: "dulshan-dhanajaya", code: "0xcbb", name: "Mr. Dulshan Dhanajaya", table: "5" },
+  { id: "sadeep-shyamal", code: "0xcbc", name: "Mr. Sadeep Shyamal", table: "5" },
+  { id: "lasindu-nisalka", code: "0xcbd", name: "Mr. Lasindu Nisalka", table: "5" },
+  { id: "tharinda-uthpala", code: "0xcbe", name: "Mr. Tharinda Uthpala", table: "6" },
+  { id: "dilan-nissanka", code: "0xcbf", name: "Mr. Dilan Nissanka", table: "6" },
+  { id: "amila-gunawickrama", code: "0xcca", name: "Mr. Amila Gunawickrama", table: "6" },
+  { id: "sahan-peris", code: "0xccb", name: "Mr. Sahan Peris", table: "6" },
+  { id: "malith-mavinda", code: "0xccc", name: "Mr. Malith Mavinda", table: "6" },
+  { id: "thimira-keerthisena", code: "0xccd", name: "Mr. & Mrs. Thimira Keerthisena", table: "6" },
+  { id: "hasitha-madushan", code: "0xcce", name: "Mr. Hasitha Madushan", table: "6" },
+  { id: "dhanuka-sankalpa", code: "0xccf", name: "Mr. Dhanuka Sankalpa", table: "6" },
+  { id: "santhushta-kariyawasam", code: "0xcda", name: "Mr. Santhushta Kariyawasam", table: "6" },
+  { id: "supun-dassanayake", code: "0xcdb", name: "Mr. Supun Dassanayake", table: "6" },
+  { id: "aruna-edirimanne", code: "0xcdc", name: "Mr. Aruna Edirimanne", table: "6", rsvpBy: "November 30, 2026" },
+  { id: "lakshitha-konara", code: "0xcdd", name: "Mr. Lakshitha Konara", table: "6", rsvpBy: "November 30, 2026" },
+  { id: "sachith-nishshanka", code: "0xcde", name: "Dr. Sachith Nishshanka", table: null },
+  { id: "p-thushantha", code: "0xcdf", name: "Dr. P. Thushantha", table: null },
+  { id: "akila-rathnayaka-mrs-sarangie-anuththara", code: "0xcea", name: "Dr. Akila Rathnayaka & Mrs. Sarangie Anuththara", table: null },
+  { id: "sandun-senanayaka", code: "0xceb", name: "Dr. Sandun Senanayaka", table: null },
+  { id: "omesha-wedagedara", code: "0xcec", name: "Dr. Omesha wedagedara", table: null },
+  { id: "nishani-chathurika", code: "0xced", name: "Dr. Nishani Chathurika", table: null },
+  { id: "jayamini-akuranthilake", code: "0xcee", name: "Dr. Jayamini Akuranthilake", table: null },
+  { id: "tharini-vithanage", code: "0xcef", name: "Dr. Tharini Vithanage", table: null },
+  { id: "harini-rupasinghe", code: "0xcfa", name: "Dr. Harini Rupasinghe", table: null },
+  { id: "rivindu-peris", code: "0xcfb", name: "Mr. & Mrs. Rivindu Peris", table: null },
+  { id: "hiruka-rathnayaka", code: "0xcfc", name: "Dr. Hiruka Rathnayaka", table: null },
+  { id: "anupama-bandusena", code: "0xcfd", name: "Dr. Anupama Bandusena", table: null },
+  { id: "nishadini-lakshika", code: "0xcfe", name: "Dr. Nishadini Lakshika", table: null },
+  { id: "melindu-daranagama", code: "0xcff", name: "Dr. Melindu Daranagama", table: null },
+  { id: "sudheera-gayan-and-family", code: "0xdaa", name: "Dr. Sudheera Gayan and family", table: null },
+  { id: "methmal-pathmasooriya", code: "0xdab", name: "Dr. Methmal pathmasooriya", table: null },
+  { id: "dulanjani-dissanayaka", code: "0xdac", name: "Dr. Dulanjani Dissanayaka", table: null },
+  { id: "dhyan-nadeera", code: "0xdad", name: "Dr. Dhyan Nadeera", table: null },
+  { id: "viduni-basnayaka", code: "0xdae", name: "Dr. Viduni Basnayaka", table: null },
+  { id: "s-abithan", code: "0xdaf", name: "Dr. S. Abithan", table: null },
+  { id: "m-sameer", code: "0xdba", name: "Dr. M. Sameer", table: null },
+  { id: "anjelo-joseph", code: "0xdbb", name: "Dr. Anjelo Joseph", table: null },
+  { id: "s-inthujan", code: "0xdbc", name: "Dr. S. Inthujan", table: null },
+  { id: "k-sharanja", code: "0xdbd", name: "Dr. K. Sharanja", table: null },
+  { id: "ruvin-alawatta", code: "0xdbe", name: "Dr. Ruvin Alawatta", table: null },
+  { id: "amaya-rosa", code: "0xdbf", name: "Dr. Amaya Rosa", table: null },
+  { id: "ravindra-priyalal", code: "0xdca", name: "Mr. & Mrs. Ravindra Priyalal", table: null },
+  { id: "naveen-fernando", code: "0xdcb", name: "Dr. Naveen Fernando", table: null },
+  { id: "madhara-jayawardhene", code: "0xdcc", name: "Dr. Madhara Jayawardhene", table: null },
+  { id: "dilu-ashani", code: "0xdcd", name: "Dr. Dilu Ashani", table: null },
+  { id: "dulakshi-navanjana", code: "0xdce", name: "Dr. Dulakshi Navanjana", table: null },
+  { id: "tharuka-perera", code: "0xdcf", name: "Dr. Tharuka Perera", table: null },
+  { id: "shilpa-fernando", code: "0xdda", name: "Mr. & Mrs. Shilpa Fernando", table: null },
+  { id: "ansala-botheju", code: "0xddb", name: "Mr. & Mrs. Ansala Botheju", table: null },
+  { id: "bawantha-sibera", code: "0xddc", name: "Mr. & Mrs. Bawantha Sibera", table: null },
+  { id: "mohommad-usman", code: "0xddd", name: "Mr. & Mrs. Mohommad Usman", table: null },
+  { id: "ravindu-perera", code: "0xdde", name: "Mr. & Mrs. Ravindu Perera", table: null },
+  { id: "nipun-fernando-and-family", code: "0xddf", name: "Mr. & Mrs. Nipun Fernando and Family", table: null },
+  { id: "deshan-fernando-and-family", code: "0xdea", name: "Mr. & Mrs. Deshan Fernando and Family", table: null },
+  { id: "menora-sathsarani", code: "0xdeb", name: "Miss. Menora Sathsarani", table: null },
+  { id: "dayathri-kuruwita", code: "0xdec", name: "Dr. Dayathri Kuruwita", table: null },
+  { id: "ravindi-kuruwita", code: "0xded", name: "Miss. Ravindi Kuruwita", table: null },
+  { id: "venuri-amalya", code: "0xdee", name: "Miss. Venuri Amalya", table: null },
+  { id: "lithmi-hettiarachchi", code: "0xdef", name: "Miss. Lithmi Hettiarachchi", table: null },
+  { id: "janaka-and-family", code: "0xdfa", name: "Mr. & Mrs. Janaka and Family", table: null },
+  { id: "weranga-wanniarachchi", code: "0xdfb", name: "Dr. Weranga Wanniarachchi", table: null },
+  { id: "dulitha-premathilake", code: "0xdfc", name: "Mr. & Mrs. Dulitha Premathilake", table: null },
+  { id: "h-d-d-premathilake", code: "0xeeb", name: "Mr. & Mrs. H.D.D. Premathilake", table: null },
+  { id: "anuradhe-jayathilake", code: "0xdfe", name: "Mr. Anuradhe Jayathilake", table: null },
+  { id: "lahiru-adikari", code: "0xdff", name: "Mr. Lahiru Adikari", table: null },
+  { id: "lahiru-sampath", code: "0xeaa", name: "Mr. Lahiru Sampath", table: null },
+  { id: "amila-ekanayaka", code: "0xeab", name: "Dr. Amila Ekanayaka", table: null },
+  { id: "dulmika-ruvishan", code: "0xeac", name: "Mr. Dulmika Ruvishan", table: null },
+  { id: "sisith-thushan", code: "0xead", name: "Mr. Sisith Thushan", table: null },
+  { id: "sachith-madushan", code: "0xeae", name: "Mr. Sachith Madushan", table: null },
+  { id: "frank-lakshan", code: "0xeaf", name: "Mr. Frank Lakshan", table: null },
+  { id: "deshan-randeniya", code: "0xeba", name: "Mr. Deshan Randeniya", table: null },
+  { id: "kavindu-rathnayaka", code: "0xebb", name: "Mr. Kavindu Rathnayaka", table: null },
+  { id: "hilari-costa", code: "0xebc", name: "Mr. Hilari Costa", table: null },
+  { id: "lal-fernando", code: "0xebd", name: "Mr. Lal Fernando", table: null },
+  { id: "priyantha-jayasooriya", code: "0xebe", name: "Mr. Priyantha Jayasooriya", table: null },
+  { id: "jude-herman", code: "0xebf", name: "Mr. Jude Herman", table: null },
+  { id: "anura-perera", code: "0xeca", name: "Mr. Anura Perera", table: null },
+  { id: "fayaz-marikkar", code: "0xecb", name: "Mr. & Mrs. Fayaz Marikkar", table: null },
+  { id: "nethmi-silva", code: "0xecc", name: "Dr. Nethmi Silva", table: null },
+  { id: "shiney-nayanathara", code: "0xecd", name: "Dr. Shiney Nayanathara", table: null },
+  { id: "aashani", code: "0xece", name: "Dr. Aashani", table: null },
+  { id: "diluka-jayasekara", code: "0xecf", name: "Dr. Diluka Jayasekara", table: null },
+  { id: "p-k-ravindran", code: "0xeda", name: "Dr. P. K. Ravindran", table: null },
+  { id: "g-m-k-bogammana", code: "0xedb", name: "Dr. G. M. K. Bogammana", table: null },
+  { id: "madhuka-dasanayaka", code: "0xedc", name: "Dr. Madhuka Dasanayaka", table: null },
+  { id: "chula-perera-family", code: "0xedd", name: "Mr. & Mrs. Chula Perera & Family", table: null },
+  { id: "bandu-family", code: "0xede", name: "Mr. & Mrs. Bandu & Family", table: null },
+  { id: "niluka-family", code: "0xedf", name: "Mrs. Niluka & Family", table: null },
+  { id: "susith-rodrigo", code: "0xeea", name: "Mr. & Mrs. Susith Rodrigo", table: null },
+  { id: "pabasara-piyumanga", code: "0xeed", name: "Mr. Pabasara piyumanga", table: null },
+  { id: "tharani-adhikari-and-mr-ishara-tharanga", code: "0xeee", name: "Dr. Tharani Adhikari and Mr. Ishara Tharanga", table: null },
+  { id: "lahiru-priyadarshana", code: "0xdfd", name: "Lahiru Priyadarshana", table: null },
+  { id: "ajith-kumara", code: "0xeec", name: "Ajith Kumara", table: null },
+  { id: "weranga-kaweesha", code: "0xeef", name: "Mrs. Weranga Kaweesha", table: null, rsvpBy: "November 30, 2026" },
+  { id: "erandi-arsakularathne-and-son", code: "0xefa", name: "Mrs. Erandi Arsakularathne and Son", table: null, rsvpBy: "December 4, 2026" },
+  { id: "ashen-lahiru", code: "0xefb", name: "Mr. Ashen Lahiru", table: null, rsvpBy: "December 4, 2026" },
+  { id: "tharindu-dilshan", code: "0xefc", name: "Mr. Tharindu Dilshan", table: null, rsvpBy: "December 4, 2026" },
+  { id: "rashan-perera-and-family", code: "0xefd", name: "Mr. Rashan Perera and Family", table: null, rsvpBy: "December 4, 2026" },
+  { id: "nilanthi", code: "0xefe", name: "Mrs. Nilanthi", table: null, rsvpBy: "December 4, 2026" },
+  { id: "viraj", code: "0xeff", name: "Mr. & Mrs. Viraj", table: null, rsvpBy: "December 4, 2026" },
+  { id: "vimarshana", code: "0xfaa", name: "Dr. Vimarshana", table: null, rsvpBy: "December 4, 2026" },
+];
 
-function people() {
-  return Object.entries(seating).flatMap(([table, seat]) =>
-    seat.people.map((name) => ({ name, table, group: seat.group || "" }))
-  );
-}
+const TABLE_LABELS = ["C", "R", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"];
 
-function clearMarks() {
-  document.querySelectorAll(".tbl, .seat").forEach((button) => button.classList.remove("is-on"));
-}
+const SITE_URL = "https://udara75.github.io/wedding/";
 
-function mark(table) {
-  clearMarks();
-  const button = document.querySelector('[data-table="' + table + '"]');
-  if (!button) return;
-  button.classList.add("is-on");
-  button.scrollIntoView({ block: "nearest", behavior: "smooth" });
-}
-
-function showTable(table) {
-  mark(table);
-  const seat = seating[table] || { people: [] };
-  const names = seat.people;
-  const title = table === "Head" ? "Head table" : "Table " + table;
-  detail.innerHTML = "";
-  const heading = document.createElement("h2");
-  heading.textContent = title;
-  detail.appendChild(heading);
-  if (seat.group) {
-    const group = document.createElement("p");
-    group.className = "kicker";
-    group.textContent = seat.group;
-    detail.appendChild(group);
-  }
-  guestList.querySelectorAll(".guest-card").forEach((card) => {
-    card.classList.toggle("is-on", card.dataset.table === table);
-  });
-  if (!names.length) {
-    const note = document.createElement("p");
-    note.className = "lead";
-    note.textContent = "No guests have been added to this table yet.";
-    detail.appendChild(note);
-    return;
-  }
-  const list = document.createElement("ul");
-  list.className = "facts";
-  names.forEach((name) => {
-    const item = document.createElement("li");
-    item.textContent = name;
-    list.appendChild(item);
-  });
-  detail.appendChild(list);
-}
-
-function showPerson(person) {
-  mark(person.table);
-  detail.innerHTML = "";
-  const heading = document.createElement("h2");
-  heading.textContent = person.name;
-  const place = document.createElement("p");
-  place.className = "lead";
-  const where = person.table === "Head" ? "Head table, beside the setty" : "Table " + person.table;
-  place.textContent = person.group ? where + ", " + person.group + "." : where + ".";
-  detail.append(heading, place);
-  guestList.querySelectorAll(".guest-card").forEach((card) => {
-    card.classList.toggle("is-on", card.dataset.table === person.table);
-  });
-}
-
-document.querySelectorAll("[data-table]").forEach((button) => {
-  button.addEventListener("click", () => showTable(button.dataset.table));
-});
-
-const assignedTables = Object.entries(seating).filter(([, seat]) => seat.people.length);
-if (assignedTables.length) {
-  guestEmpty.hidden = true;
-  assignedTables.forEach(([table, seat]) => {
-    const block = document.createElement("button");
-    block.type = "button";
-    block.className = "guest-card";
-    block.dataset.table = table;
-
-    const title = document.createElement("strong");
-    title.textContent = (table === "Head" ? "Head table" : "Table " + table) + (seat.group ? " · " + seat.group : "");
-    block.appendChild(title);
-
-    const names = document.createElement("span");
-    names.textContent = seat.people.join(", ");
-    block.appendChild(names);
-
-    block.addEventListener("click", () => showTable(table));
-    guestList.appendChild(block);
-  });
-}
+const RSVP_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbx19BZ3IEICQu4u9wmkgE_7YI8p6kagOYgi2TDLtvFqMKT5UhayzkXrwdwz64gjp42_/exec";

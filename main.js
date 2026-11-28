@@ -1,0 +1,500 @@
+const cover = document.getElementById("cover");
+const openBtn = document.getElementById("openBtn");
+const invite = document.getElementById("invite");
+const passport = document.getElementById("passport");
+const petalBurst = document.getElementById("petalBurst");
+const guestNameEl = document.getElementById("guestName");
+const rsvpForm = document.getElementById("rsvpForm");
+const rsvpNote = document.getElementById("rsvpNote");
+const rsvpSuccess = document.getElementById("rsvpSuccess");
+const seatingSection = document.getElementById("seating");
+const seatingNumber = document.getElementById("seatingNumber");
+const seatingNote = document.getElementById("seatingNote");
+const seatingPlan = document.getElementById("seatingPlan");
+const weddingMusic = document.getElementById("weddingMusic");
+const musicToggle = document.getElementById("musicToggle");
+
+const isMobile =
+  window.matchMedia("(max-width: 768px)").matches ||
+  window.matchMedia("(pointer: coarse)").matches;
+
+const PETAL_COUNT = isMobile ? 200 : 400;
+
+let opening = false;
+let currentGuest = null;
+
+function normalizeGuestKey(value) {
+  return String(value || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
+}
+
+function guestId(guest) {
+  if (guest.id) return normalizeGuestKey(guest.id);
+  return normalizeGuestKey(guest.name)
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function normalizeHexCode(value) {
+  const raw = String(value || "")
+    .trim()
+    .toLowerCase();
+  // Letter-hex only: 0x + three chars from a–f
+  const match = raw.match(/^(?:0x)?([a-f]{3})$/);
+  if (!match) return "";
+  return `0x${match[1]}`;
+}
+
+function guestCode(guest) {
+  return normalizeHexCode(guest && guest.code);
+}
+
+function guestParam(guest) {
+  const code = guestCode(guest);
+  return code ? `guest_${code}` : "";
+}
+
+function slugifyGuestValue(value) {
+  return normalizeGuestKey(value)
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function getGuestFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const guests = typeof GUESTS !== "undefined" ? GUESTS : [];
+
+  // Format: ?guest_0xacf=<slug>
+  // Each hex code is unique (Dr. Weranga ≠ Mrs. Weranga).
+  for (const [key, value] of params.entries()) {
+    const keyMatch = String(key)
+      .trim()
+      .toLowerCase()
+      .match(/^guest_(0x[a-f]{3})$/);
+    if (!keyMatch) continue;
+
+    const code = normalizeHexCode(keyMatch[1]);
+    if (!code) continue;
+
+    // 1) Prefer exact code + slug (safest)
+    const slug = slugifyGuestValue(value);
+    const exact = guests.find(
+      (guest) => guestCode(guest) === code && guestId(guest) === slug
+    );
+    if (exact) return exact;
+
+    // 2) Code alone — unique per guest (fixes truncated/wrong slug still showing "Guest")
+    const byCode = guests.find((guest) => guestCode(guest) === code);
+    if (byCode) return byCode;
+  }
+
+  return null;
+}
+
+function normalizeTableCode(value) {
+  if (value == null || String(value).trim() === "") return null;
+  let code = String(value).trim().toUpperCase();
+  // Couple table
+  if (code === "C" || code === "S" || code === "COUPLE") return "C";
+  // Old U-codes → numbered tables on the new chart
+  const uMatch = code.match(/^U(\d+)$/);
+  if (uMatch) return uMatch[1];
+  // Reserved
+  if (code === "R" || code === "R1" || code === "R2") return "R";
+  return code;
+}
+
+function tableDisplayName(code) {
+  if (code === "C") return "Couple table";
+  if (code === "R") return "Table R";
+  return `Table ${code}`;
+}
+
+// Seating chart: Udara & Shainy always; everyone else from Dec 1, 2026 (Sri Lanka)
+const SEATING_UNLOCK_AT = new Date("2026-12-01T00:00:00+05:30").getTime();
+const SEATING_EARLY_IDS = new Set(["udara-kavinda", "shainy-tharushika"]);
+
+function canViewSeatingChart(guest) {
+  if (Date.now() >= SEATING_UNLOCK_AT) return true;
+  if (!guest) return false;
+  const id = guestId(guest);
+  return SEATING_EARLY_IDS.has(id);
+}
+
+function renderSeating(guest) {
+  if (!seatingSection) return;
+
+  // No personalized guest — hide seating
+  if (!guest) {
+    seatingSection.hidden = true;
+    seatingSection.classList.remove("is-locked");
+    if (seatingPlan) seatingPlan.hidden = true;
+    return;
+  }
+
+  const table = normalizeTableCode(guest.table);
+  seatingSection.hidden = false;
+
+  // Before Dec 1 (except couple), or no table assigned yet — show Coming soon
+  if (!canViewSeatingChart(guest) || !table) {
+    seatingSection.classList.add("is-locked");
+    if (seatingPlan) seatingPlan.hidden = true;
+    if (seatingNumber) seatingNumber.textContent = "Coming soon";
+    if (seatingNote) {
+      seatingNote.textContent = !table
+        ? canViewSeatingChart(guest)
+          ? "Your table number will be shared with you soon."
+          : "Your table number will be available from December 1, 2026."
+        : "Your table number will be available from December 1, 2026.";
+    }
+    return;
+  }
+
+  seatingSection.classList.remove("is-locked");
+  if (seatingPlan) seatingPlan.hidden = false;
+  if (seatingNumber) seatingNumber.textContent = tableDisplayName(table);
+  if (seatingNote) {
+    seatingNote.textContent =
+      table === "C"
+        ? "You are seated at the couple's table — see the head table on the plan."
+        : `Please join us at ${tableDisplayName(table)}.`;
+  }
+}
+
+const DEFAULT_RSVP_BY = "November 20, 2026";
+const rsvpDeadlineDate = document.getElementById("rsvpDeadlineDate");
+
+function personalizeInvitation() {
+  currentGuest = getGuestFromUrl();
+  const displayName = currentGuest ? currentGuest.name : "Guest";
+
+  if (guestNameEl) guestNameEl.textContent = displayName;
+
+  if (currentGuest) {
+    document.title = `${currentGuest.name} — Udara & Shainy Wedding`;
+    const nameInput = rsvpForm?.querySelector('input[name="name"]');
+    if (nameInput && !nameInput.value) nameInput.value = currentGuest.name;
+  }
+
+  if (rsvpDeadlineDate) {
+    rsvpDeadlineDate.textContent =
+      (currentGuest && currentGuest.rsvpBy) || DEFAULT_RSVP_BY;
+  }
+
+  renderSeating(currentGuest);
+}
+
+personalizeInvitation();
+
+// Ceremony countdown — Dec 16, 2026 · 3:30 PM Sri Lanka time
+const CEREMONY_AT = new Date("2026-12-16T15:30:00+05:30").getTime();
+const cdDays = document.getElementById("cdDays");
+const cdHours = document.getElementById("cdHours");
+const cdMinutes = document.getElementById("cdMinutes");
+const cdSeconds = document.getElementById("cdSeconds");
+
+function padCount(value) {
+  return String(Math.max(0, value)).padStart(2, "0");
+}
+
+function updateCountdown() {
+  if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
+
+  const diff = Math.max(0, CEREMONY_AT - Date.now());
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  cdDays.textContent = String(days);
+  cdHours.textContent = padCount(hours);
+  cdMinutes.textContent = padCount(minutes);
+  cdSeconds.textContent = padCount(seconds);
+}
+
+updateCountdown();
+window.setInterval(updateCountdown, 1000);
+
+function wait(ms) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+function drawPetalShape(ctx, w, h) {
+  // Pointed lavender-style petal (works on older mobile browsers too)
+  ctx.moveTo(0, -h);
+  ctx.bezierCurveTo(w * 0.95, -h * 0.55, w * 0.95, h * 0.25, 0, h);
+  ctx.bezierCurveTo(-w * 0.95, h * 0.25, -w * 0.95, -h * 0.55, 0, -h);
+  ctx.closePath();
+}
+
+function spawnPetals(count = PETAL_COUNT) {
+  if (!petalBurst) return;
+
+  petalBurst.innerHTML = "";
+  petalBurst.classList.add("is-active");
+
+  const canvas = document.createElement("canvas");
+  canvas.className = "petal-canvas";
+  petalBurst.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d", { alpha: true });
+  if (!ctx) return;
+
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = petalBurst.clientWidth || window.innerWidth || 360;
+  const h = petalBurst.clientHeight || window.innerHeight || 640;
+
+  canvas.width = Math.max(1, Math.floor(w * dpr));
+  canvas.height = Math.max(1, Math.floor(h * dpr));
+  canvas.style.width = `${w}px`;
+  canvas.style.height = `${h}px`;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const colors = [
+    "rgba(240, 228, 250, 0.92)",
+    "rgba(180, 143, 212, 0.9)",
+    "rgba(143, 99, 181, 0.88)",
+    "rgba(107, 74, 138, 0.9)",
+  ];
+
+  const safeCount = Math.max(0, Number(count) || 0);
+  const petals = new Array(safeCount);
+
+  for (let i = 0; i < safeCount; i += 1) {
+    petals[i] = {
+      x: Math.random() * w,
+      y: -30 - Math.random() * h,
+      size: 7 + Math.random() * 16,
+      speed: 140 + Math.random() * 260,
+      drift: -70 + Math.random() * 140,
+      rot: Math.random() * Math.PI * 2,
+      spin: -2.5 + Math.random() * 5,
+      color: colors[(Math.random() * colors.length) | 0],
+      delay: Math.random() * 0.45,
+    };
+  }
+
+  let start = null;
+  let frameId = 0;
+
+  function tick(ts) {
+    if (!start) start = ts;
+    const elapsed = (ts - start) / 1000;
+    ctx.clearRect(0, 0, w, h);
+
+    for (let i = 0; i < safeCount; i += 1) {
+      const p = petals[i];
+      const local = elapsed - p.delay;
+      if (local < 0) continue;
+
+      const y = p.y + p.speed * local;
+      if (y > h + 50) continue;
+
+      ctx.save();
+      ctx.translate(p.x + p.drift * local * 0.35, y);
+      ctx.rotate(p.rot + p.spin * local);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      drawPetalShape(ctx, p.size * 0.42, p.size);
+      ctx.fill();
+
+      // Soft center vein for a more petal-like look
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.22)";
+      ctx.lineWidth = Math.max(0.6, p.size * 0.06);
+      ctx.beginPath();
+      ctx.moveTo(0, -p.size * 0.72);
+      ctx.quadraticCurveTo(p.size * 0.04, 0, 0, p.size * 0.78);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    frameId = window.requestAnimationFrame(tick);
+  }
+
+  frameId = window.requestAnimationFrame(tick);
+  window.setTimeout(() => window.cancelAnimationFrame(frameId), 5000);
+}
+
+function showMusicToggle() {
+  if (!musicToggle) return;
+  musicToggle.hidden = false;
+}
+
+function setMusicMuted(muted) {
+  if (!weddingMusic) return;
+  weddingMusic.muted = !!muted;
+  if (!musicToggle) return;
+  musicToggle.classList.toggle("is-muted", !!muted);
+  musicToggle.setAttribute(
+    "aria-label",
+    muted ? "Play music" : "Mute music"
+  );
+}
+
+function syncMusicToggle() {
+  if (!weddingMusic || !musicToggle) return;
+  const silent = weddingMusic.paused || weddingMusic.muted;
+  musicToggle.classList.toggle("is-muted", silent);
+  musicToggle.setAttribute(
+    "aria-label",
+    silent ? "Play music" : "Mute music"
+  );
+}
+
+function startWeddingMusic() {
+  if (!weddingMusic) return;
+  showMusicToggle();
+  weddingMusic.volume = 0.7;
+  weddingMusic.muted = false;
+  try {
+    weddingMusic.currentTime = 0;
+  } catch (_) {
+    /* ignore seek errors before metadata */
+  }
+  const playAttempt = weddingMusic.play();
+  if (playAttempt && typeof playAttempt.then === "function") {
+    playAttempt
+      .then(() => {
+        setMusicMuted(false);
+        syncMusicToggle();
+      })
+      .catch(() => {
+        // Browser blocked it — guest can tap ♪
+        showMusicToggle();
+        syncMusicToggle();
+      });
+  } else {
+    syncMusicToggle();
+  }
+}
+
+async function openInvitation() {
+  if (opening) return;
+  opening = true;
+
+  // Must start inside this tap/click — browsers block music otherwise
+  startWeddingMusic();
+
+  cover.classList.add("is-opening");
+  cover.setAttribute("aria-busy", "true");
+
+  // Petals must never block opening if they fail
+  try {
+    await wait(30);
+    spawnPetals(PETAL_COUNT);
+    await wait(isMobile ? 1600 : 2000);
+  } catch (error) {
+    console.warn("Petal animation skipped:", error);
+  }
+
+  cover.classList.add("is-gone");
+  cover.style.pointerEvents = "none";
+  invite.hidden = false;
+  document.body.style.overflow = "";
+
+  window.requestAnimationFrame(() => {
+    passport.classList.add("is-open");
+    invite.classList.add("is-revealed");
+    // Mobile Safari can leave delayed reveals at opacity 0 — force visible
+    document
+      .querySelectorAll(".countdown-section, .rsvp-deadline, .rsvp, .seating")
+      .forEach((el) => {
+        if (el.hasAttribute("hidden")) return;
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+  });
+}
+
+document.body.style.overflow = "hidden";
+
+function onOpenActivate(event) {
+  if (opening) return;
+  event.preventDefault();
+  event.stopPropagation();
+  openInvitation();
+}
+
+openBtn.addEventListener("click", onOpenActivate);
+openBtn.addEventListener("touchend", onOpenActivate, { passive: false });
+openBtn.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    onOpenActivate(event);
+  }
+});
+
+if (weddingMusic) {
+  weddingMusic.addEventListener("play", syncMusicToggle);
+  weddingMusic.addEventListener("pause", syncMusicToggle);
+}
+
+if (musicToggle) {
+  musicToggle.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!weddingMusic) return;
+    if (weddingMusic.paused) {
+      weddingMusic.muted = false;
+      weddingMusic.play().then(syncMusicToggle).catch(syncMusicToggle);
+      return;
+    }
+    setMusicMuted(!weddingMusic.muted);
+    syncMusicToggle();
+  });
+}
+
+rsvpForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const data = Object.fromEntries(new FormData(rsvpForm).entries());
+  if (currentGuest) {
+    data.guestFromLink = currentGuest.name;
+    data.guestId = guestParam(currentGuest) || currentGuest.id;
+  }
+
+  const scriptUrl =
+    typeof RSVP_SCRIPT_URL !== "undefined" ? RSVP_SCRIPT_URL.trim() : "";
+
+  const controls = rsvpForm.querySelectorAll("input, select, textarea, button");
+  controls.forEach((el) => {
+    el.disabled = true;
+  });
+
+  if (!scriptUrl) {
+    if (rsvpNote) {
+      rsvpNote.hidden = false;
+      rsvpNote.textContent =
+        "RSVP sheet is not connected yet. Add RSVP_SCRIPT_URL in guests.js.";
+    }
+    controls.forEach((el) => {
+      el.disabled = false;
+    });
+    return;
+  }
+
+  try {
+    await fetch(scriptUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(data),
+    });
+
+    if (rsvpNote) rsvpNote.hidden = true;
+    if (rsvpSuccess) rsvpSuccess.hidden = false;
+  } catch (error) {
+    console.error("RSVP submit failed:", error);
+    controls.forEach((el) => {
+      el.disabled = false;
+    });
+    if (rsvpNote) {
+      rsvpNote.hidden = false;
+      rsvpNote.textContent = "Could not send RSVP. Please try again.";
+    }
+  }
+});
