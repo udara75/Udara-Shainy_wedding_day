@@ -146,7 +146,20 @@ const seating = {
       "Master Dhaniru Randil"
     ]
   },
-  "10": { people: [] },
+  "10": {
+    people: [
+      "Mr Hilari Costa",
+      "Mr Lal Fernando",
+      "Mr Priyantha Jayasooriya",
+      "Mr Jude Herman",
+      "Mr Jude Perera",
+      "Mr Bonny Perera",
+      "VMASTER photography",
+      "VMASTER photography",
+      "VMASTER photography",
+      "VMASTER photography"
+    ]
+  },
   "11": {
     group: "DGH Chilaw",
     people: [
