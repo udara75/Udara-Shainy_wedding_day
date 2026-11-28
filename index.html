@@ -1,279 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <title>Udara & Shainy — Wedding Invitation</title>
-    <meta
-      name="description"
-      content="You're invited to the wedding of Udara & Shainy. Ceremony at 3:30 PM, St. Anne's Church, Kurana. Reception at 6:30 PM, Grandeeza Hotel, Negombo."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Outfit:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css?v=20261121a" />
-  </head>
-  <body>
-    <!-- Premium cover — only the round button / text opens -->
-    <section class="cover" id="cover">
-      <div class="cover-media" aria-hidden="true">
-        <img
-          class="cover-photo"
-          src="cover.png"
-          alt=""
-          width="1080"
-          height="1920"
-          decoding="async"
-          draggable="false"
-        />
-        <div class="cover-veil"></div>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shainy &amp; Udara · Dec 16, 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="mast">
+      <p class="eyebrow">Wedding day</p>
+      <h1>Shainy &amp; Udara</h1>
+      <p class="date">December 16, 2026</p>
+    </header>
 
-      <div
-        class="open-btn"
-        id="openBtn"
-        role="button"
-        tabindex="0"
-        aria-label="Press to open the invitation"
-      >
-        <span class="open-orb" aria-hidden="true">
-          <svg class="open-map" viewBox="0 0 120 120" fill="none">
-            <circle cx="60" cy="60" r="54" stroke="currentColor" stroke-width="1.5" opacity="0.55" />
-            <circle cx="60" cy="60" r="42" stroke="currentColor" stroke-width="0.8" opacity="0.35" />
-            <ellipse cx="60" cy="60" rx="20" ry="54" stroke="currentColor" stroke-width="0.8" opacity="0.35" />
-            <path d="M6 60h108M60 6v108" stroke="currentColor" stroke-width="0.8" opacity="0.35" />
-            <path
-              d="M18 38c12 4 28 6 42 2 14-4 28-2 42 4M18 82c14-4 28-2 42 2s28 2 42-4"
-              stroke="currentColor"
-              stroke-width="0.9"
-              opacity="0.4"
-            />
-          </svg>
-          <svg class="open-plane" viewBox="0 0 64 64" fill="currentColor">
-            <path
-              d="M62 32c0 1.1-.7 1.9-2 2.2L38 39.5 30 56h-3.8l3.5-16.2L16 36H5.2C3.4 36 2.4 35 3 33.6c.3-.7 1-1.1 2-1.1H16l13.7-3.3L26.2 13H30l8 16.2 22 5.3c1.3.3 2 1.1 2 2.5z"
-            />
-          </svg>
-        </span>
-        <span class="open-main">Press to open</span>
-      </div>
+    <main id="gate" class="card">
+      <h2>Sign in</h2>
+      <p class="lead">Choose your name and enter the password shared with you.</p>
 
-      <div class="petal-burst" id="petalBurst" aria-hidden="true"></div>
-    </section>
+      <form id="login-form" autocomplete="off">
+        <label for="user">User name</label>
+        <select id="user" name="username" required>
+          <option value="" selected disabled>Select a name</option>
+          <option>Udara</option>
+          <option>Shainy</option>
+          <option>Grandeezza</option>
+          <option>VMASTER</option>
+          <option>Senuri-Deco</option>
+          <option>WIFI music</option>
+          <option value="__other">Other</option>
+        </select>
 
-    <audio
-      id="weddingMusic"
-      src="wedding-music.mp3"
-      loop
-      preload="auto"
-      playsinline
-    ></audio>
-    <button
-      type="button"
-      class="music-toggle"
-      id="musicToggle"
-      aria-label="Mute music"
-      hidden
-    >
-      <span class="music-toggle-icon" aria-hidden="true">♪</span>
-    </button>
-
-    <!-- Passport invitation details -->
-    <main class="invite" id="invite" hidden>
-      <div class="passport" id="passport">
-        <div class="passport-book">
-          <div class="passport-inside-left">
-            <p class="left-note">Two Hearts</p>
-            <div class="crest" aria-hidden="true">✈</div>
-            <p class="left-note">One journey.</p>
-          </div>
-
-          <div class="passport-page">
-            <div class="romance-float" aria-hidden="true">
-              <span>♥</span>
-              <span>♥</span>
-              <span>♥</span>
-              <span>♥</span>
-            </div>
-
-            <p class="parents-line">Son of Mr. &amp; Mrs. L.D. Karunadasa</p>
-            <p class="parents-join" aria-hidden="true">
-              <span></span><em>&amp;</em><span></span>
-            </p>
-            <p class="parents-line">Daughter of Mr. &amp; Mrs. P.V.D.L. Roy</p>
-
-            <h2 class="page-names">Udara <span>&amp;</span> Shainy</h2>
-
-            <p class="invite-copy">
-              Together with our families, we request the pleasure of your presence
-            </p>
-
-            <p class="guest-name" id="guestName">Guest</p>
-
-            <p class="invite-copy">at our wedding ceremony.</p>
-
-            <p class="heart-rule" aria-hidden="true">
-              <span></span><i>♥</i><span></span>
-            </p>
-
-            <div class="destinations">
-              <article class="destination">
-                <p class="destination-label">First destination</p>
-                <h3 class="destination-title">Holy Matrimony</h3>
-                <div class="destination-row">
-                  <span class="destination-icon" aria-hidden="true">
-                    <img src="church.png" alt="" width="64" height="64" />
-                  </span>
-                  <div class="destination-info">
-                    <p class="destination-place">St. Anne's Church, Kurana</p>
-                    <p class="destination-date">December 16, 2026</p>
-                    <p class="destination-time">Ceremony time: 3:30 PM</p>
-                  </div>
-                </div>
-                <a
-                  class="destination-map"
-                  href="https://maps.app.goo.gl/Bbpmd7AQUQ8CguSY6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Get Direction</a
-                >
-              </article>
-
-              <article class="destination">
-                <p class="destination-label">Final destination</p>
-                <h3 class="destination-title">Wedding Reception</h3>
-                <div class="destination-row">
-                  <span class="destination-icon" aria-hidden="true">
-                    <svg viewBox="0 0 64 64" fill="currentColor" role="img">
-                      <title>Hotel</title>
-                      <!-- Building -->
-                      <rect x="10" y="8" width="44" height="50" rx="2" />
-                      <!-- Windows grid -->
-                      <g fill="var(--paper, #f7f2fb)">
-                        <rect x="16" y="14" width="7" height="7" rx="0.8" />
-                        <rect x="28.5" y="14" width="7" height="7" rx="0.8" />
-                        <rect x="41" y="14" width="7" height="7" rx="0.8" />
-                        <rect x="16" y="26" width="7" height="7" rx="0.8" />
-                        <rect x="28.5" y="26" width="7" height="7" rx="0.8" />
-                        <rect x="41" y="26" width="7" height="7" rx="0.8" />
-                        <rect x="16" y="38" width="7" height="7" rx="0.8" />
-                        <rect x="41" y="38" width="7" height="7" rx="0.8" />
-                      </g>
-                      <!-- Door -->
-                      <rect x="27" y="40" width="10" height="18" rx="1" fill="var(--paper, #f7f2fb)" />
-                    </svg>
-                  </span>
-                  <div class="destination-info">
-                    <p class="destination-place">Grandeeza Hotel, Negombo</p>
-                    <p class="destination-date">December 16, 2026</p>
-                    <p class="destination-time">Reception time: 6:30 PM</p>
-                  </div>
-                </div>
-                <a
-                  class="destination-map"
-                  href="https://maps.app.goo.gl/vfWdKmS5FkgESbeeA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Get Direction</a
-                >
-              </article>
-            </div>
-
-            <a class="rsvp-link" href="#rsvp">RSVP</a>
-          </div>
+        <div id="other-wrap" class="other-wrap" hidden>
+          <label for="other-user">Other name</label>
+          <select id="other-user" name="otherUsername">
+            <option value="" selected disabled>Select a name</option>
+            <option>Naveen</option>
+            <option>Roshen</option>
+            <option>Sewwandi</option>
+            <option>Shehan</option>
+            <option>Sandani</option>
+            <option>Dilki</option>
+            <option>Udari</option>
+            <option>Shashik</option>
+            <option>Samith</option>
+            <option>Ruchira</option>
+            <option>Ruwan</option>
+            <option>Sanda</option>
+            <option>Dulitha</option>
+          </select>
         </div>
-      </div>
 
-      <section
-        class="countdown-section"
-        id="countdown"
-        aria-label="Countdown to the ceremony on December 16, 2026 at 3:30 PM"
-      >
-        <p class="countdown-date">Wednesday · December 16 · 2026</p>
-        <p class="countdown-time">Ceremony begins at 3:30 PM</p>
-        <div class="countdown">
-          <div class="countdown-unit">
-            <span id="cdDays">00</span>
-            <small>Days</small>
-          </div>
-          <div class="countdown-unit">
-            <span id="cdHours">00</span>
-            <small>Hours</small>
-          </div>
-          <div class="countdown-unit">
-            <span id="cdMinutes">00</span>
-            <small>Minutes</small>
-          </div>
-          <div class="countdown-unit">
-            <span id="cdSeconds">00</span>
-            <small>Seconds</small>
-          </div>
-        </div>
-      </section>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
 
-      <section class="rsvp-deadline" aria-label="RSVP deadline">
-        <p class="rsvp-deadline-label">Please reply by</p>
-        <p class="rsvp-deadline-date" id="rsvpDeadlineDate">November 20, 2026</p>
-      </section>
+        <p id="login-error" class="error" role="alert" hidden>That name and password do not match. Try again.</p>
 
-      <section class="rsvp" id="rsvp">
-        <p class="rsvp-eyebrow">Kindly respond</p>
-        <h3 class="rsvp-title">Will you join us?</h3>
-        <form class="rsvp-form" id="rsvpForm">
-          <label>
-            Full name
-            <input type="text" name="name" required placeholder="Your name" />
-          </label>
-          <label>
-            Response
-            <select name="response" required>
-              <option value="" disabled selected>Select</option>
-              <option value="yes">Joyfully accepts</option>
-              <option value="no">Regretfully declines</option>
-            </select>
-          </label>
-          <label>
-            Message
-            <textarea name="message" rows="3" placeholder="Optional"></textarea>
-          </label>
-          <button type="submit">Send RSVP</button>
-          <p class="rsvp-note" id="rsvpNote">
-            Your reply is saved to our Google Sheet.
-          </p>
-          <p class="rsvp-success" id="rsvpSuccess" hidden>
-            Thank you — your RSVP was received.
-          </p>
-        </form>
-      </section>
-
-      <section class="seating" id="seating" hidden>
-        <p class="seating-eyebrow">Reception seating</p>
-        <h3 class="seating-title">Your table</h3>
-        <p class="seating-number" id="seatingNumber">Table —</p>
-        <figure class="seating-plan" id="seatingPlan" hidden>
-          <img
-            src="Seating_plan.png"
-            alt="Wedding hall floor plan"
-            width="1200"
-            height="900"
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
-        <p class="seating-note" id="seatingNote"></p>
-      </section>
+        <button type="submit">Enter</button>
+      </form>
     </main>
 
-    <script src="guests.js?v=20261125b"></script>
-    <script src="main.js?v=20261125b"></script>
-  </body>
+    <main id="home" class="card home" hidden>
+      <p class="welcome">Welcome, <span id="who"></span></p>
+      <p class="lead">Choose a section to open.</p>
+      <nav id="sections" class="sections" aria-label="Wedding sections"></nav>
+      <button id="sign-out" type="button" class="quiet">Sign out</button>
+    </main>
+  </div>
+  <script src="access.js"></script>
+  <script src="app.js"></script>
+</body>
 </html>

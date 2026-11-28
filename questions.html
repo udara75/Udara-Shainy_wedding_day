@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Questions · Shainy &amp; Udara</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body hidden>
+  <div class="page wide">
+    <header class="mast">
+      <p class="eyebrow">Shainy &amp; Udara</p>
+      <h1>Questions</h1>
+      <p class="date">Pending and completed</p>
+    </header>
+    <main class="card">
+      <a class="back" href="index.html">Back</a>
+      <form id="ask-form">
+        <label for="question">New question</label>
+        <textarea id="question" rows="3" required placeholder="Type the question"></textarea>
+        <button type="submit">Add question</button>
+      </form>
+      <p class="access-hint">Questions stay on this browser. Sign in on each phone if that phone should keep the same list.</p>
+
+      <section class="piece">
+        <h2>Pending</h2>
+        <div id="pending" class="qa-list"></div>
+      </section>
+      <section class="piece">
+        <h2>Completed</h2>
+        <div id="completed" class="qa-list"></div>
+      </section>
+    </main>
+  </div>
+  <script src="access.js"></script>
+  <script src="page.js"></script>
+  <script src="questions.js"></script>
+</body>
+</html>

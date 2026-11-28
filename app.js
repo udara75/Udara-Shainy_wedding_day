@@ -34,7 +34,8 @@ const sections = [
   { icon: "🪑", title: "Guest list and tables", note: "Names, seats, and table plan", href: "guests.html" },
   { icon: "🍽️", title: "Hotel Menu", note: "Dishes, drinks, and service", href: "menu.html" },
   { icon: "⏳", title: "Event timeline", note: "The order of the day", href: "timeline.html" },
-  { icon: "🎷", title: "Saxophone", note: "Music cues and set list", href: "saxophone.html" }
+  { icon: "🎷", title: "Saxophone", note: "Music cues and set list", href: "saxophone.html" },
+  { icon: "❓", title: "Questions", note: "Ask, answer, and mark complete", href: "questions.html" }
 ];
 
 const gate = document.getElementById("gate");
