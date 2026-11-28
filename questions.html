@@ -20,7 +20,12 @@
         <textarea id="question" rows="3" required placeholder="Type the question"></textarea>
         <button type="submit">Add question</button>
       </form>
-      <p class="access-hint">Questions stay on this browser. Sign in on each phone if that phone should keep the same list.</p>
+      <form id="token-form">
+        <label for="github-token">GitHub token</label>
+        <input id="github-token" type="password" autocomplete="off" placeholder="Needed once on this browser to save questions">
+        <button type="submit" class="quiet">Save token on this browser</button>
+      </form>
+      <p id="save-status" class="access-hint" role="status"></p>
 
       <section class="piece">
         <h2>Pending</h2>
