@@ -156,6 +156,7 @@ document.querySelectorAll("[data-table]").forEach((button) => {
 const assignedTables = Object.entries(seating).filter(([, seat]) => seat.people.length);
 if (assignedTables.length) {
   guestEmpty.hidden = true;
+  assignedTables.sort((a, b) => Number(a[0] === "Head" ? 99 : a[0]) - Number(b[0] === "Head" ? 99 : b[0]));
   assignedTables.forEach(([table, seat]) => {
     const block = document.createElement("button");
     block.type = "button";

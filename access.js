@@ -12,7 +12,8 @@ const WeddingAccess = (() => {
     "menu.html": ["Udara", "Shainy", "Grandeezza", "Roshen", "Shehan", "Shashik"],
     "timeline.html": everyone,
     "saxophone.html": ["Udara", "Shainy", "Naveen", "Ruwan", "Grandeezza", "WIFI music"],
-    "questions.html": ["Udara", "Shainy"]
+    "questions.html": ["Udara", "Shainy"],
+    "band.html": ["Udara", "Shainy", "Naveen", "Ruwan", "Grandeezza", "WIFI music"]
   };
 
   function load() {
