@@ -1,5 +1,20 @@
 const seating = {
-  "01": { people: [] },
+  "01": {
+    people: [
+      "Mr Neel Rohanakumara",
+      "Mrs Indrani Rathnayaka",
+      "Mr Dulitha Premathilaka",
+      "Mrs Nelna Sugandi",
+      "Mr Samith Deshan",
+      "Mr H. D. Dharamasena",
+      "Mrs Sumithra Damayanthi",
+      "Mrs Neluka Paris",
+      "Miss Sandani Dilhara",
+      "Miss Dilmi Yasara",
+      "Miss Dilki Nimhara",
+      "Mr Milton Paris"
+    ]
+  },
   "02": {
     group: "University of Peradeniya",
     people: [
@@ -54,18 +69,18 @@ const seating = {
   "05": { people: [] },
   "06": {
     people: [
-      "Mrs Neel Rohanakumara",
-      "Mrs Indrani Rathnayaka",
-      "Mr Dulitha Premathilaka",
-      "Mrs Nelna Sugandi",
-      "Mr Samith Deshan",
-      "Mr H. D. Dharamasena",
-      "Mrs Sumithra Damayanthi",
-      "Mrs Neluka Paris",
-      "Miss Sandani Dilhara",
-      "Miss Dilmi Yasara",
-      "Miss Dilki Nimhara",
-      "Mr Milton Paris"
+      "Mr J. M. Gunathilake",
+      "Mrs Ashoka Malkanthi",
+      "Mr Theekshana Yaparathna",
+      "Mrs Madureka Gimhani",
+      "Mr Jananjan Yaparathna",
+      "Mrs Eranga Hansamali",
+      "Mrs Chamila Fernando",
+      "Miss Oshadhi Perera",
+      "Miss Kaushani Perera",
+      "Master Thiwen Thathsiru",
+      "Master Wenuja Randev",
+      "Miss Ayurvi Abhimandhara"
     ]
   },
   "07": {
@@ -86,23 +101,39 @@ const seating = {
   },
   "08": {
     people: [
-      "Mr Ruchira Maduranga",
-      "Mr Kapila Indrajith",
-      "Mr Sirantha Vass",
-      "Mrs Darshika Nilochani",
-      "Mrs L.D. Somawathi",
-      "Miss Maneesha Sivaneththi",
-      "Miss Mary Athuraliya",
-      "Mr Amila",
-      "Mr W. Sudarman",
-      "Mr W. Poojitha",
-      "Mr Manjula Prabath",
-      "Mrs Weranga Kaweesha"
+      "Dr K. A. P. Thushantha",
+      "Dr Amila Somarathna",
+      "Dr Sanchala Fernando",
+      "Dr Niroshini Chandrarathne",
+      "Dr Vimarshana",
+      "Dr Dulana Sadiesh",
+      "Dr Imesh Saranga",
+      "Dr Kaveen Tharuka",
+      "Dr Dulakshi Navanjana",
+      "Dr Dilu Ashani",
+      "Dr Madhara Jayawardhene",
+      "Dr Naveen Fernando"
     ]
   },
   "09": { people: [] },
   "10": { people: [] },
-  "11": { people: [] },
+  "11": {
+    group: "DGH Chilaw",
+    people: [
+      "Dr P. K. Ravindran",
+      "Dr G. M. K. Bogammana",
+      "Dr Suneth Fernando",
+      "Dr Madhuka Dassanayaka",
+      "Dr Kulara Dissanayaka",
+      "Dr Nimesh Randeniya",
+      "Dr Nelumdini Fernando",
+      "Dr Thanushi Perera",
+      "Dr R. Nirojan",
+      "Dr S. Inthujan",
+      "Dr Ruvin Alawatta",
+      "Dr Amaya Roza"
+    ]
+  },
   "12": {
     people: [
       "Mr Laxman Roy",
@@ -137,7 +168,22 @@ const seating = {
   "15": { people: [] },
   "16": { people: [] },
   "17": { people: [] },
-  "18": { people: [] },
+  "18": {
+    people: [
+      "Mr Ruchira Maduranga",
+      "Mr Kapila Indrajith",
+      "Mr Sirantha Vass",
+      "Mrs Darshika Nilochani",
+      "Mrs L.D. Somawathi",
+      "Miss Maneesha Sivaneththi",
+      "Miss Mary Athuraliya",
+      "Mr Amila",
+      "Mr W. Sudarman",
+      "Mr W. Poojitha",
+      "Mr Manjula Prabath",
+      "Mrs Weranga Kaweesha"
+    ]
+  },
   Head: { people: [] }
 };
 
