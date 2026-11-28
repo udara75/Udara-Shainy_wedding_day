@@ -22,7 +22,8 @@ const seating = {
     people: [
       "Mr Aditha Rajakaruna",
       "Mr Lakshitha Madushan",
-      "Mr & Mrs Ashan Thirimanne",
+      "Mr Ashan Thirimanne",
+      "Mrs Nadeeshani Samarasighe",
       "Mr Thimila Ranaweera",
       "Mr Kaushan Ranasinghe",
       "Miss Manodya Deemanthi",
@@ -40,7 +41,8 @@ const seating = {
       "Mr Dilan Nissanka",
       "Mr Amila Kasun",
       "Mr Sahan Peiris",
-      "Mr & Mrs Thimira Keerthisena",
+      "Mr Thimira Keerthisena",
+      "Mrs Prasadi Nirmada",
       "Mr Malith Mavinda",
       "Mr Dhanuka Sankalpa",
       "Mr Santhush Kariyawasam",
@@ -50,23 +52,85 @@ const seating = {
     ]
   },
   "05": { people: [] },
-  "06": { people: [] },
-  "07": { people: [] },
-  "08": { people: [] },
+  "06": {
+    people: [
+      "Mrs Neel Rohanakumara",
+      "Mrs Indrani Rathnayaka",
+      "Mr Dulitha Premathilaka",
+      "Mrs Nelna Sugandi",
+      "Mr Samith Deshan",
+      "Mr H. D. Dharamasena",
+      "Mrs Sumithra Damayanthi",
+      "Mrs Neluka Paris",
+      "Miss Sandani Dilhara",
+      "Miss Dilmi Yasara",
+      "Miss Dilki Nimhara",
+      "Mr Milton Paris"
+    ]
+  },
+  "07": {
+    people: [
+      "Mr L.D. Karunadasa",
+      "Mrs Leela Athuraliya",
+      "Mr Shashik Dushmantha",
+      "Mrs Udari Sankalpani",
+      "Mr Premathilakada Silva",
+      "Mrs Jayanthi Mallika",
+      "Mr Shan Umantha",
+      "Miss Janakshi Hasanjana",
+      "Mr J. Rubasinghe",
+      "Mrs D. Wickramarachchi",
+      "Mrs Nadeeka Saruwabandara",
+      "Miss Jayanthi Edirisooriya"
+    ]
+  },
+  "08": {
+    people: [
+      "Mr Ruchira Maduranga",
+      "Mr Kapila Indrajith",
+      "Mr Sirantha Vass",
+      "Mrs Darshika Nilochani",
+      "Mrs L.D. Somawathi",
+      "Miss Maneesha Sivaneththi",
+      "Miss Mary Athuraliya",
+      "Mr Amila",
+      "Mr W. Sudarman",
+      "Mr W. Poojitha",
+      "Mr Manjula Prabath",
+      "Mrs Weranga Kaweesha"
+    ]
+  },
   "09": { people: [] },
   "10": { people: [] },
   "11": { people: [] },
-  "12": { people: [] },
+  "12": {
+    people: [
+      "Mr Laxman Roy",
+      "Mrs Rochana Perera",
+      "Mr Shehan Harshana",
+      "Mrs Sadareka Prasadini",
+      "Mr Roshen Shalinka",
+      "Mrs Sewwandi Rohanakumara",
+      "Mr Susith Rodrigo",
+      "Mrs Anne Pushpa",
+      "Mr Bandu Aberathne",
+      "Mrs Samanthi Priyangika",
+      "Miss Hiruni Shehara",
+      "Miss Nethmi Himasha"
+    ]
+  },
   "13": {
     people: [
-      "Mr & Mrs Ruwan Nandana",
-      "Mr & Mrs Chalindu Sankalpa",
+      "Mr Ruwan Nandana",
+      "Mrs Upeksha Sewmini",
+      "Mr Chalindu Sankalpa",
+      "Mrs Udanie Prarthana",
       "Mr Lahiru Chamara",
+      "Mr Madawa Dilshan",
       "Mr Naveen Wickremasinghe",
       "Mrs Chanuri Saneesha",
       "Mrs Udari Pabodhini",
-      "Miss Sapna Gamage",
-      "Mrs Weranga Kaweesha"
+      "Miss Sapna Gamage"
     ]
   },
   "14": { people: [] },
