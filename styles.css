@@ -290,6 +290,37 @@ button.quiet:hover {
   border-bottom: 1px solid rgba(227, 215, 242, 0.8);
 }
 
+.facts a { color: var(--gold); }
+
+.timeline {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+}
+.timeline li {
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--line);
+}
+.timeline time {
+  display: block;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--gold);
+}
+.timeline p { margin: 0.25rem 0 0; }
+
+a.download {
+  display: block;
+  margin-top: 1.15rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fbf8ff;
+  text-align: center;
+  text-decoration: none;
+}
+
 .piece img {
   width: 100%;
   display: block;
