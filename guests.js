@@ -66,7 +66,20 @@ const seating = {
       "Mr Lakshitha Konara"
     ]
   },
-  "05": { people: [] },
+  "05": {
+    people: [
+      "Mr Deshan Fernando",
+      "Mrs Duhulu Thiththagalle",
+      "Mr Mohommad Usman",
+      "Mrs Noorul Qamra",
+      "Mr Ravindu Perera",
+      "Mrs Nawanjana Perera",
+      "Mr Nipun Fernando",
+      "Mrs Raveesha Michelle",
+      "Mr Pabasara Piyumanga",
+      "Miss Menora Sathsarani"
+    ]
+  },
   "06": {
     people: [
       "Mr J. M. Gunathilake",
@@ -100,6 +113,7 @@ const seating = {
     ]
   },
   "08": {
+    group: "DGH Chilaw",
     people: [
       "Dr K. A. P. Thushantha",
       "Dr Amila Somarathna",
@@ -115,7 +129,23 @@ const seating = {
       "Dr Naveen Fernando"
     ]
   },
-  "09": { people: [] },
+  "09": {
+    people: [
+      "Dr Nishani Chathurika",
+      "Dr Jayamini Akuranthilake",
+      "Dr Harini Rupasinghe",
+      "Dr Tharini Nimasha",
+      "Dr Maduka Fernando",
+      "Mr Ravindran Priyalal",
+      "Dr Dayathri Kuruwita",
+      "Miss Ravindi Kuruwita",
+      "Miss Venuri Amalya",
+      "Miss Lithmi Hettiarachchi",
+      "Mr Janaka Premnath",
+      "Mrs Kumari Gunathilake",
+      "Master Dhaniru Randil"
+    ]
+  },
   "10": { people: [] },
   "11": {
     group: "DGH Chilaw",
@@ -164,11 +194,23 @@ const seating = {
       "Miss Sapna Gamage"
     ]
   },
-  "14": { people: [] },
-  "15": { people: [] },
-  "16": { people: [] },
-  "17": { people: [] },
-  "18": {
+  "14": {
+    people: [
+      "Mr Anuradha Jayathilake",
+      "Dr Amila Ekanayaka",
+      "Mr Lahiru Sampath",
+      "Mr Lahiru Adhikari",
+      "Mr Kavindu Rathnayaka",
+      "Mr Deshan Randeniya",
+      "Mr Sisith Thushan",
+      "Mr Sachith Madushan",
+      "Mr Frank Lakshan",
+      "Mr Dulmika Ruvishan",
+      "Mr Ashen Lahiru",
+      "Mr Tharindu Dilshan"
+    ]
+  },
+  "15": {
     people: [
       "Mr Ruchira Maduranga",
       "Mr Kapila Indrajith",
@@ -184,6 +226,23 @@ const seating = {
       "Mrs Weranga Kaweesha"
     ]
   },
+  "16": {
+    people: [
+      "Mr Shashika Perera",
+      "Mrs Chandima Fernando",
+      "Master Shashin Perera",
+      "Mrs Agnus",
+      "Mr Rashan Perera",
+      "Mrs Malshani",
+      "Miss Nicoli Perera",
+      "Mr Ishara Tharanga",
+      "Dr Tharani Adhikari",
+      "Mrs Eranga Arsakularathne",
+      "Master Daham"
+    ]
+  },
+  "17": { people: [] },
+  "18": { people: [] },
   Head: { people: [] }
 };
 
